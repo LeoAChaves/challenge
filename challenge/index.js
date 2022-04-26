@@ -22,4 +22,13 @@ const headers = csvArray[0]
 
 headers.pop();
 
-console.log(headers);
+for (let i = 1; i < csvArray.length; i++) {
+  let property = csvArray[i]
+    .split(", ")
+    .toString()
+    .replaceAll('"', "")
+    .split(",");
+  property.pop();
+
+  console.log(`Property ${i}: ${property}`);
+}
