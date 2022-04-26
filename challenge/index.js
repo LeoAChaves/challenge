@@ -1,5 +1,15 @@
 import fs from "fs";
 
+const csv = fs.readFileSync("./challenge/input.csv");
+const csvArray = csv.toString().split("\r").toString().split("\n");
+const result = [];
+const headers = csvArray[0]
+  .split(", ")
+  .toString()
+  .replaceAll('"', "")
+  .split(",");
+headers.pop();
+
 function createJsonFile(fileName, fileContent) {
   fs.writeFile(
     `./challenge/${fileName}.json`,
@@ -11,25 +21,12 @@ function createJsonFile(fileName, fileContent) {
   );
 }
 
-const csv = fs.readFileSync("./challenge/input.csv");
-const csvArray = csv.toString().split("\r").toString().split("\n");
-
-const headers = csvArray[0]
-  .split(", ")
-  .toString()
-  .replaceAll('"', "")
-  .split(",");
-
-headers.pop();
-
 for (let h = 0; h < headers.length; h++) {
   let header = headers[h];
   if (h !== headers.indexOf(header)) {
-    headers[h] += h - headers.indexOf(header);
+    headers[h] += "_" + (h - headers.indexOf(header)).toString();
   }
 }
-
-let result = [];
 
 for (let i = 1; i < csvArray.length; i++) {
   let obj = {};
