@@ -1,23 +1,25 @@
 import fs from "fs";
 
+// function createJsonFile(fileName, fileContent) {
+//   fs.writeFile(
+//     `./challenge/${fileName}.json`,
+//     JSON.stringify(fileContent),
+//     (error) => {
+//       if (error) throw error;
+//       console.log("\nDone writing\n");
+//     }
+//   );
+// }
+
 const csv = fs.readFileSync("./challenge/input.csv");
-const stringCsv = csv.toString();
+const csvArray = csv.toString().split("\r").toString().split("\n");
 
-const jsonTest = {
-  msg: "Hello World!",
-  type: "test",
-};
+const headers = csvArray[0]
+  .split(", ")
+  .toString()
+  .replaceAll('"', "")
+  .split(",");
 
-function createJsonFile(fileName, fileContent) {
-  fs.writeFile(
-    `./challenge/${fileName}.json`,
-    JSON.stringify(fileContent),
-    (error) => {
-      if (error) throw error;
-      console.log("\nDone writing\n");
-    }
-  );
-}
+headers.pop();
 
-createJsonFile("testFile", jsonTest);
-console.log(stringCsv);
+console.log(headers);
