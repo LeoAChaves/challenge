@@ -22,6 +22,13 @@ const headers = csvArray[0]
 
 headers.pop();
 
+for (let h = 0; h < headers.length; h++) {
+  let header = headers[h];
+  if (h !== headers.indexOf(header)) {
+    headers[h] += h - headers.indexOf(header);
+  }
+}
+
 let result = [];
 
 for (let i = 1; i < csvArray.length; i++) {
