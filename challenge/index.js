@@ -39,4 +39,4 @@ for (let i = 1; i < csvArray.length; i++) {
   result.push(obj);
 }
 
-console.log(result);
+createJsonFile("output", result);
