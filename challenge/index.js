@@ -6,7 +6,7 @@ function createJsonFile(fileName, fileContent) {
     JSON.stringify(fileContent),
     (error) => {
       if (error) throw error;
-      console.log("\nDone writing\n");
+      console.log("Done writing\n");
     }
   );
 }
@@ -22,6 +22,8 @@ const headers = csvArray[0]
 
 headers.pop();
 
+let result = [];
+
 for (let i = 1; i < csvArray.length; i++) {
   let obj = {};
   let property = csvArray[i]
@@ -29,9 +31,12 @@ for (let i = 1; i < csvArray.length; i++) {
     .toString()
     .replaceAll('"', "")
     .split(",");
-  property.pop();
+
   for (let j = 0; j < headers.length; j++) {
     obj[headers[j]] = property[j];
   }
-  console.log(`Object ${i}: ${JSON.stringify(obj)}\n`);
+
+  result.push(obj);
 }
+
+console.log(result);
