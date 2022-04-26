@@ -16,5 +16,6 @@
   "bugs": {
     "url": "https://github.com/LeoAChaves/challenge/issues"
   },
-  "homepage": "https://github.com/LeoAChaves/challenge#readme"
+  "homepage": "https://github.com/LeoAChaves/challenge#readme",
+  "type": "module"
 }
