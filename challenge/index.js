@@ -18,18 +18,27 @@ function createJsonFile(fileName, fileContent) {
 }
 
 for (let h = 0; h < headers.length; h++) {
-  let header = headers[h];
-  if (h !== headers.indexOf(header)) {
+  const header = headers[h];
+  const repeat = h !== headers.indexOf(header);
+  if (repeat) {
     headers[h] += "_" + (h - headers.indexOf(header)).toString();
   }
 }
 
 for (let i = 1; i < csvArray.length; i++) {
   let obj = {};
-  let property = csvArray[i].replaceAll('"', "").split(",");
+  let line = csvArray[i];
+  const regex = /\"([\w|\s|\d])*\,([\w|\s|\d])*\"/g;
+  const attributes = line
+    .replace(regex, (e) => e.replace(",", ";"))
+    .split(",")
+    .join("*")
+    .replaceAll(";", ",")
+    .replaceAll('"', "")
+    .split("*");
 
   for (let j = 0; j < headers.length; j++) {
-    obj[headers[j]] = property[j];
+    obj[headers[j]] = attributes[j];
   }
 
   result.push(obj);
