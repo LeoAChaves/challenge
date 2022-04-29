@@ -17,5 +17,9 @@
     "url": "https://github.com/LeoAChaves/challenge/issues"
   },
   "homepage": "https://github.com/LeoAChaves/challenge#readme",
+  "engines": {
+    "node": "16.14.0",
+    "vscode": "^1.22.0"
+  },
   "type": "module"
 }
