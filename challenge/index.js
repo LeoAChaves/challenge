@@ -17,31 +17,30 @@ function createJsonFile(fileName, fileContent) {
   );
 }
 
-for (let h = 0; h < headers.length; h++) {
-  const header = headers[h];
-  const repeat = h !== headers.indexOf(header);
+headers.forEach((header, index) => {
+  const repeat = index !== headers.indexOf(header);
   if (repeat) {
-    headers[h] += "_" + (h - headers.indexOf(header)).toString();
+    headers[index] += "_" + (index - headers.indexOf(header)).toString();
   }
-}
+});
 
-for (let i = 1; i < csvArray.length; i++) {
-  let obj = {};
-  let line = csvArray[i];
-  const regex = /\"([\w|\s|\d])*\,([\w|\s|\d])*\"/g;
-  const attributes = line
-    .replace(regex, (e) => e.replace(",", ";"))
-    .split(",")
-    .join("*")
-    .replaceAll(";", ",")
-    .replaceAll('"', "")
-    .split("*");
+csvArray.forEach((line, index) => {
+  if (index > 0) {
+    let obj = {};
+    const regex = /\"([\w|\s|\d])*\,([\w|\s|\d])*\"/g;
+    const attributes = line
+      .replace(regex, (e) => e.replace(",", "+"))
+      .split(",")
+      .join("*")
+      .replaceAll("+", ",")
+      .replaceAll('"', "")
+      .split("*");
 
-  for (let j = 0; j < headers.length; j++) {
-    obj[headers[j]] = attributes[j];
+    for (let i = 0; i < headers.length; i++) {
+      obj[headers[i]] = attributes[i];
+    }
+    result.push(obj);
   }
-
-  result.push(obj);
-}
+});
 
 createJsonFile("output", result);
